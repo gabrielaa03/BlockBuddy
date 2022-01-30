@@ -12,6 +12,10 @@
             goes in background (with notification) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!-- permission for enabling auto-processing once the app
+          reboots -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -34,7 +38,16 @@
         </activity>
 
         <receiver
-            android:name=".utils.PhoneStateReceiver"
+            android:name=".broadcastreceiver.PhoneBootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".broadcastreceiver.PhoneStateReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />

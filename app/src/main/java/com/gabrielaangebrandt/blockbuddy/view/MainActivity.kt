@@ -10,8 +10,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gabrielaangebrandt.blockbuddy.R
+import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.PhoneStateReceiver
 import com.gabrielaangebrandt.blockbuddy.databinding.ActivityMainBinding
-import com.gabrielaangebrandt.blockbuddy.utils.PhoneStateReceiver
 import com.gabrielaangebrandt.blockbuddy.viewmodel.MainActivityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), CallListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private val receiver: PhoneStateReceiver by lazy {
+    private val stateReceiver: PhoneStateReceiver by lazy {
         PhoneStateReceiver()
     }
     private val viewModel: MainActivityViewModel by viewModel()
@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity(), CallListener {
 
     override fun onResume() {
         super.onResume()
-        receiver.setListener(this)
-        registerReceiver(receiver, IntentFilter(""))
+        stateReceiver.setListener(this)
+        registerReceiver(stateReceiver, IntentFilter(""))
     }
 
     override fun onCallReceived(number: String) {
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), CallListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(receiver)
+        unregisterReceiver(stateReceiver)
     }
 
     override fun onSupportNavigateUp(): Boolean {

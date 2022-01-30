@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.utils
+package com.gabrielaangebrandt.blockbuddy.broadcastreceiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
