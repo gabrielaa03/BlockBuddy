@@ -4,14 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.ProcessState
+import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
 
-class MainFragmentViewModel : ViewModel() {
+class MainFragmentViewModel(
+    private val sharedPrefsHelper: SharedPrefsHelper
+) : ViewModel() {
 
     var processState = MutableLiveData<ProcessState>()
-    var isProcessing = false
 
     fun changeState() {
-        isProcessing = !isProcessing
+        sharedPrefsHelper.serviceRunning = !sharedPrefsHelper.serviceRunning
         setupUI()
     }
 
@@ -19,7 +21,7 @@ class MainFragmentViewModel : ViewModel() {
         val imageRes: Int
         val textRes: Int
 
-        if (isProcessing) {
+        if (sharedPrefsHelper.serviceRunning) {
             imageRes = R.drawable.ic_stop
             textRes = R.string.press_button_to_stop_processing
         } else {
