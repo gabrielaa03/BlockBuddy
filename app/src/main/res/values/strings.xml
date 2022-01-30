@@ -25,4 +25,8 @@
     <!-- Main Fragment -->
     <string name="press_button_to_start_processing">Press button to start processing</string>
     <string name="press_button_to_stop_processing">Press button to stop processing</string>
+    <string name="permission_needed">Permission needed</string>
+    <string name="allow">Allow</string>
+    <string name="cancel">Cancel</string>
+    <string name="blockbuddy_needs_your_permission">BlockBuddy needs your permission for reading phone state and call log to be able to process incoming calls.</string>
 </resources>

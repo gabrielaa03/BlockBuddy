@@ -11,6 +11,8 @@ class MainFragmentViewModel(
 ) : ViewModel() {
 
     var processState = MutableLiveData<ProcessState>()
+    val isServiceRunning: Boolean
+        get() = sharedPrefsHelper.serviceRunning
 
     fun changeState() {
         sharedPrefsHelper.serviceRunning = !sharedPrefsHelper.serviceRunning

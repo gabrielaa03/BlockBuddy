@@ -2,6 +2,7 @@ package com.gabrielaangebrandt.blockbuddy.di
 
 import android.content.Context
 import com.gabrielaangebrandt.blockbuddy.utils.NotificationHelper
+import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -17,4 +18,5 @@ val applicationModule = module {
     }
     single { SharedPrefsHelper(get()) }
     single { NotificationHelper(get()) }
+    single { PermissionsManager(get()) }
 }
