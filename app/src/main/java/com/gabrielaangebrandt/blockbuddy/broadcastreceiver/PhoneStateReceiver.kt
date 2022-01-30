@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
 import android.widget.Toast
-import com.gabrielaangebrandt.blockbuddy.view.CallListener
 
 class PhoneStateReceiver : BroadcastReceiver() {
 

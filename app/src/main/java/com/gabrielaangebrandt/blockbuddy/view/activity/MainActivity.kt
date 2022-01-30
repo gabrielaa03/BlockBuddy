@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.view
+package com.gabrielaangebrandt.blockbuddy.view.activity
 
 import android.content.IntentFilter
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gabrielaangebrandt.blockbuddy.R
+import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.CallListener
 import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.PhoneStateReceiver
 import com.gabrielaangebrandt.blockbuddy.databinding.ActivityMainBinding
 import com.gabrielaangebrandt.blockbuddy.viewmodel.MainActivityViewModel
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity(), CallListener {
 
         setSupportActionBar(binding.appBarLayout.toolbar)
 
-        setUpNavigationDrawer()
+        setUpNavigation()
     }
 
     override fun onResume() {
@@ -56,11 +57,21 @@ class MainActivity : AppCompatActivity(), CallListener {
                 || super.onSupportNavigateUp()
     }
 
-    private fun setUpNavigationDrawer() {
+    private fun setUpNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
         val navController: NavController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.navViewLayout.bottomNavView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.callCheck ->
+                    navController.navigate(R.id.mainToHistory)
+                else ->
+                    navController.navigate(R.id.mainToHistory)
+            }
+            true
+        }
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Use DrawerLayout as root container for activity -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:src="@drawable/ic_phone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCaller"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:fontFamily="sans-serif-black"
+        android:paddingTop="@dimen/small_margin"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/tvTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="MOM" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:fontFamily="sans-serif"
+        android:paddingBottom="@dimen/small_margin"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivIcon"
+        app:layout_constraintTop_toBottomOf="@id/tvCaller"
+        tools:text="Wed, Jan 21,2022" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

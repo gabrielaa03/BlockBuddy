@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.view
+package com.gabrielaangebrandt.blockbuddy.view.fragment
 
 import android.content.Context
 import android.content.Intent
