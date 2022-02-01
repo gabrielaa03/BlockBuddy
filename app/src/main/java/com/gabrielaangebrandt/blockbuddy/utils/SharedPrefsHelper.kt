@@ -3,13 +3,35 @@ package com.gabrielaangebrandt.blockbuddy.utils
 import android.content.SharedPreferences
 
 private const val SERVICE_RUNNING = "ServiceRunning"
+private const val ALLOW_CONTACTS_ONLY_CALL = "AllowContactsOnlyCall"
+private const val ALLOW_CONTACTS_ONLY_SMS = "AllowContactsOnlySms"
 
 class SharedPrefsHelper(private val preferences: SharedPreferences) {
 
     var serviceRunning: Boolean = false
         get() = preferences.getBoolean(SERVICE_RUNNING, false)
         set(value) {
-            preferences.edit().putBoolean(SERVICE_RUNNING, value).apply()
+            preferences.edit()
+                .putBoolean(SERVICE_RUNNING, value)
+                .apply()
+            field = value
+        }
+
+    var allowContactsOnlyCall: Boolean = false
+        get() = preferences.getBoolean(ALLOW_CONTACTS_ONLY_CALL, false)
+        set(value) {
+            preferences.edit()
+                .putBoolean(ALLOW_CONTACTS_ONLY_CALL, value)
+                .apply()
+            field = value
+        }
+
+    var allowContactsOnlySms: Boolean = false
+        get() = preferences.getBoolean(ALLOW_CONTACTS_ONLY_SMS, false)
+        set(value) {
+            preferences.edit()
+                .putBoolean(ALLOW_CONTACTS_ONLY_SMS, value)
+                .apply()
             field = value
         }
 }

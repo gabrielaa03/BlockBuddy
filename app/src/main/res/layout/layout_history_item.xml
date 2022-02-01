@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Use DrawerLayout as root container for activity -->
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,7 +24,7 @@
         android:layout_marginStart="@dimen/standard_margin"
         android:fontFamily="sans-serif-black"
         android:paddingTop="@dimen/small_margin"
-        android:textSize="14sp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintBottom_toTopOf="@id/tvTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivIcon"
@@ -38,7 +38,7 @@
         android:layout_marginStart="@dimen/standard_margin"
         android:fontFamily="sans-serif"
         android:paddingBottom="@dimen/small_margin"
-        android:textSize="12sp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivIcon"

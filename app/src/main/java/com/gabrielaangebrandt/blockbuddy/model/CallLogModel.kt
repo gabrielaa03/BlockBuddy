@@ -1,7 +1,7 @@
 package com.gabrielaangebrandt.blockbuddy.model
 
-data class CallLog(
-    val type: CallState,
+data class CallLogModel(
+    val type: CallState = CallState.NORMAL,
     val name: String,
     val number: String,
     val time: String

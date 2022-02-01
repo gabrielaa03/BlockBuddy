@@ -6,22 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.SettingsFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSettingsInstructions"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="@dimen/highlight_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/customize_your_settings" />
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/allowCallsFromContactsOnly"
+        layout="@layout/layout_switch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSettingsInstructions" />
+
+    <include
+        android:id="@+id/allowSmsFromContactsOnly"
+        layout="@layout/layout_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/allowCallsFromContactsOnly" />
+
+    <include
+        android:id="@+id/customBlocking"
+        layout="@layout/layout_custom_blocking"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        app:layout_constraintTop_toBottomOf="@id/allowSmsFromContactsOnly" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

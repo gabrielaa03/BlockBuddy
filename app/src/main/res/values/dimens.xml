@@ -3,4 +3,6 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="btn_action_dimen">60dp</dimen>
     <dimen name="standard_elevation">8dp</dimen>
+    <dimen name="regular_text_size">14sp</dimen>
+    <dimen name="highlight_text_size">16sp</dimen>
 </resources>
