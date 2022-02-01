@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.databinding.FragmentManageProcessingBinding
-import com.gabrielaangebrandt.blockbuddy.model.ProcessState
+import com.gabrielaangebrandt.blockbuddy.model.processing.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
 import com.gabrielaangebrandt.blockbuddy.viewmodel.ManageProcessingFragmentViewModel
 import org.koin.android.ext.android.inject

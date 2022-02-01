@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielaangebrandt.blockbuddy.databinding.LayoutHistoryItemBinding
-import com.gabrielaangebrandt.blockbuddy.model.CallLogModel
+import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
 
 class HistoryListAdapter : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHolder>() {
 

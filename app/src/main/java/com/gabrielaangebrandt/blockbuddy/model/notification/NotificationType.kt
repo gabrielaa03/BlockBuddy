@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.model
+package com.gabrielaangebrandt.blockbuddy.model.notification
 
 enum class NotificationType {
     FOREGROUND_SERVICE_NOTIFICATION,

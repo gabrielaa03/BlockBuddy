@@ -8,8 +8,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.gabrielaangebrandt.blockbuddy.R
-import com.gabrielaangebrandt.blockbuddy.model.NotificationData
-import com.gabrielaangebrandt.blockbuddy.model.NotificationType
+import com.gabrielaangebrandt.blockbuddy.model.notification.NotificationData
+import com.gabrielaangebrandt.blockbuddy.model.notification.NotificationType
 
 class NotificationHelper(private val context: Context) {
 

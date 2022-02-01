@@ -3,7 +3,7 @@ package com.gabrielaangebrandt.blockbuddy.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gabrielaangebrandt.blockbuddy.R
-import com.gabrielaangebrandt.blockbuddy.model.ProcessState
+import com.gabrielaangebrandt.blockbuddy.model.processing.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
 
 class ManageProcessingFragmentViewModel(

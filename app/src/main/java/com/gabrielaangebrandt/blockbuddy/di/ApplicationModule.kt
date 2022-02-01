@@ -4,6 +4,7 @@ import android.content.Context
 import com.gabrielaangebrandt.blockbuddy.utils.NotificationHelper
 import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
+import com.google.gson.GsonBuilder
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -16,7 +17,8 @@ val applicationModule = module {
             Context.MODE_PRIVATE
         )
     }
-    single { SharedPrefsHelper(get()) }
+    single { SharedPrefsHelper(get(), get()) }
     single { NotificationHelper(get()) }
     single { PermissionsManager(get()) }
+    single { GsonBuilder().create() }
 }

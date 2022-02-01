@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.model
+package com.gabrielaangebrandt.blockbuddy.model.processing
 
 data class CallLogModel(
     val type: CallState = CallState.NORMAL,

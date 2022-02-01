@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.model
+package com.gabrielaangebrandt.blockbuddy.model.processing
 
 import androidx.annotation.ColorRes
 import com.gabrielaangebrandt.blockbuddy.R

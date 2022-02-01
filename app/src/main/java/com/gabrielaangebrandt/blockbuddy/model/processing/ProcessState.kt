@@ -1,4 +1,4 @@
-package com.gabrielaangebrandt.blockbuddy.model
+package com.gabrielaangebrandt.blockbuddy.model.processing
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

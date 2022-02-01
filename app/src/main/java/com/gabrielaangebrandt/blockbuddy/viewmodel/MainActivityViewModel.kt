@@ -1,8 +1,8 @@
 package com.gabrielaangebrandt.blockbuddy.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.gabrielaangebrandt.blockbuddy.model.CallState
-import com.gabrielaangebrandt.blockbuddy.model.NotificationType
+import com.gabrielaangebrandt.blockbuddy.model.processing.CallState
+import com.gabrielaangebrandt.blockbuddy.model.notification.NotificationType
 import com.gabrielaangebrandt.blockbuddy.utils.NotificationHelper
 
 private const val SUSPICIOUS_CALL_MOCK = "425-950-1212"
