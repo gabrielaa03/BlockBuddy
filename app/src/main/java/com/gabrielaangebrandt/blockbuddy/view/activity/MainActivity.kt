@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), CallListener {
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_BlockBuddy_NoActionBar)
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)

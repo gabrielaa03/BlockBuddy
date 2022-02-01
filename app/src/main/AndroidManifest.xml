@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gabrielaangebrandt.blockbuddy">
-
     <!-- permission for receiving phone calls -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <!-- permission for detecting phone number -->
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
-
-    <!-- permission for enabling processing once the app
-            goes in background (with notification) -->
+    <!-- permission for enabling processing once the app goes in background (with notification) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!-- permission for enabling auto-processing once the app
-          reboots -->
+    <!-- permission for enabling auto-processing once the app reboots -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -23,13 +17,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.BlockBuddy">
+        android:supportsRtl="true">
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BlockBuddy.NoActionBar">
+            android:theme="@style/SplashScreen">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,10 +36,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".broadcastreceiver.PhoneStateReceiver"
             android:exported="true">
@@ -53,6 +47,6 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
-
     </application>
+
 </manifest>

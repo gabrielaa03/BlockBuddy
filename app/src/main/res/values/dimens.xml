@@ -5,4 +5,5 @@
     <dimen name="standard_elevation">8dp</dimen>
     <dimen name="regular_text_size">14sp</dimen>
     <dimen name="highlight_text_size">16sp</dimen>
+    <dimen name="app_icon_dimen">120dp</dimen>
 </resources>
