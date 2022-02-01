@@ -3,48 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/MainFragment">
+    app:startDestination="@id/manageProcessingFragment">
 
     <fragment
-        android:id="@+id/MainFragment"
-        android:name="com.gabrielaangebrandt.blockbuddy.view.MainFragment"
-        android:label="@string/main_fragment_label"
-        tools:layout="@layout/fragment_main">
+        android:id="@+id/manageProcessingFragment"
+        android:name="com.gabrielaangebrandt.blockbuddy.view.fragment.ManageProcessingFragment"
+        android:label="@string/call_processing"
+        tools:layout="@layout/fragment_manage_processing">
 
         <action
-            android:id="@+id/mainToHistory"
-            app:destination="@id/HistoryFragment" />
+            android:id="@+id/manageProcessingToHistory"
+            app:destination="@id/historyFragment" />
 
         <action
-            android:id="@+id/mainToSettings"
-            app:destination="@id/SettingsFragment" />
+            android:id="@+id/manageProcessingToSettings"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/HistoryFragment"
-        android:name="com.gabrielaangebrandt.blockbuddy.view.HistoryFragment"
-        android:label="@string/history_fragment_label"
+        android:id="@+id/historyFragment"
+        android:name="com.gabrielaangebrandt.blockbuddy.view.fragment.HistoryFragment"
+        android:label="@string/history"
         tools:layout="@layout/fragment_settings">
 
         <action
-            android:id="@+id/history_to_settings"
-            app:destination="@id/SettingsFragment" />
+            android:id="@+id/historyToSettings"
+            app:destination="@id/settingsFragment" />
 
         <action
-            android:id="@+id/historyToMain"
-            app:destination="@id/MainFragment" />
+            android:id="@+id/historyToManageProcessing"
+            app:destination="@id/manageProcessingFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/SettingsFragment"
-        android:name="com.gabrielaangebrandt.blockbuddy.view.SettingsFragment"
-        android:label="@string/settings_fragment_label"
+        android:id="@+id/settingsFragment"
+        android:name="com.gabrielaangebrandt.blockbuddy.view.fragment.SettingsFragment"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings">
 
         <action
-            android:id="@+id/settingsToMain"
-            app:destination="@id/MainFragment" />
+            android:id="@+id/settingsToManageProcessing"
+            app:destination="@id/manageProcessingFragment" />
         <action
             android:id="@+id/settingsToHistory"
-            app:destination="@id/HistoryFragment" />
+            app:destination="@id/historyFragment" />
     </fragment>
 </navigation>

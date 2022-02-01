@@ -4,22 +4,8 @@
     <string name="app_notification_description">Tap to return to the app</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="main_fragment_label">Main Fragment</string>
-    <string name="history_fragment_label">History Fragment</string>
-    <string name="settings_fragment_label">Settings Fragment</string>
-
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="suspicious_call">Suspicious call</string>
-    <string name="be_careful_this_number_is_not_on_your_contact_list">Be careful. This number is not on your contact list.</string>
-
-    <!-- Navigation Menu -->
-    <string name="manage_actions">Manage actions</string>
+    <string name="call_processing">Call Processing</string>
     <string name="history">History</string>
-    <string name="advanced">Advanced</string>
     <string name="settings">Settings</string>
 
     <!-- Main Fragment -->
@@ -29,4 +15,7 @@
     <string name="allow">Allow</string>
     <string name="cancel">Cancel</string>
     <string name="blockbuddy_needs_your_permission">BlockBuddy needs your permission for reading phone state and call log to be able to process incoming calls.</string>
+    <string name="suspicious_call">Suspicious call</string>
+    <string name="be_careful_this_number_is_not_on_your_contact_list">Be careful. This number is not on your contact list.</string>
+
 </resources>

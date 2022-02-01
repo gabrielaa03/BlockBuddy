@@ -19,12 +19,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavView"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/teal"
         android:elevation="@dimen/standard_elevation"
         app:itemIconTint="@color/white"
-        app:labelVisibilityMode="unlabeled"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

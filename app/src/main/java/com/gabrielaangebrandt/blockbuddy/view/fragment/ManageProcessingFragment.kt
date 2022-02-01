@@ -13,22 +13,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.gabrielaangebrandt.blockbuddy.R
-import com.gabrielaangebrandt.blockbuddy.databinding.FragmentMainBinding
+import com.gabrielaangebrandt.blockbuddy.databinding.FragmentManageProcessingBinding
 import com.gabrielaangebrandt.blockbuddy.model.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
-import com.gabrielaangebrandt.blockbuddy.viewmodel.MainFragmentViewModel
+import com.gabrielaangebrandt.blockbuddy.viewmodel.ManageProcessingFragmentViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment(), PermissionsCallback {
+class ManageProcessingFragment : Fragment(), PermissionsCallback {
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentManageProcessingBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var activityContext: Context
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
-    private val viewModel: MainFragmentViewModel by viewModel()
+    private val viewModel: ManageProcessingFragmentViewModel by viewModel()
     private val permissionsManager: PermissionsManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class MainFragment : Fragment(), PermissionsCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentManageProcessingBinding.inflate(inflater, container, false)
         return binding.root
     }
 

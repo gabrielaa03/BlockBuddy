@@ -6,7 +6,7 @@ import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
 
-class MainFragmentViewModel(
+class ManageProcessingFragmentViewModel(
     private val sharedPrefsHelper: SharedPrefsHelper
 ) : ViewModel() {
 
