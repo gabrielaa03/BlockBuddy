@@ -25,14 +25,14 @@
         android:fontFamily="sans-serif-black"
         android:paddingTop="@dimen/small_margin"
         android:textSize="@dimen/regular_text_size"
-        app:layout_constraintBottom_toTopOf="@id/tvTime"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvNumber"
+        app:layout_constraintEnd_toStartOf="@id/tvTime"
         app:layout_constraintStart_toEndOf="@id/ivIcon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="MOM" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tvNumber"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/standard_margin"
@@ -40,9 +40,23 @@
         android:paddingBottom="@dimen/small_margin"
         android:textSize="@dimen/regular_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvTime"
         app:layout_constraintStart_toEndOf="@id/ivIcon"
         app:layout_constraintTop_toBottomOf="@id/tvCaller"
+        tools:text="28599443434" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:paddingBottom="@dimen/small_margin"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Wed, Jan 21,2022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

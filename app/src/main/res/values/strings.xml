@@ -18,6 +18,10 @@
     <string name="suspicious_call">Suspicious call</string>
     <string name="be_careful_this_number_is_not_on_your_contact_list">Be careful. This number is not on your contact list.</string>
 
+    <!-- History Fragment -->
+    <string name="to_be_able_to_see_history_you_need_to_give_permissions_to_blockbuddy">To be able to see history, you need to give permissions to BlockBuddy.</string>
+    <string name="unknown">Unknown</string>
+
     <!-- Settings Fragment -->
     <string name="customize_your_settings">Customize your settings:</string>
     <string name="allow_calls_from_contact_list_only">Allow calls from contact list only</string>

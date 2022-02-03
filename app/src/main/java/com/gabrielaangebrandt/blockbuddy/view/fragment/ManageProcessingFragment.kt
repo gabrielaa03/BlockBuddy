@@ -1,21 +1,21 @@
 package com.gabrielaangebrandt.blockbuddy.view.fragment
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.gabrielaangebrandt.blockbuddy.R
+import com.gabrielaangebrandt.blockbuddy.TAG
 import com.gabrielaangebrandt.blockbuddy.databinding.FragmentManageProcessingBinding
 import com.gabrielaangebrandt.blockbuddy.model.processing.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
+import com.gabrielaangebrandt.blockbuddy.view.activity.MainActivity
+import com.gabrielaangebrandt.blockbuddy.view.activity.PermissionAlertListener
+import com.gabrielaangebrandt.blockbuddy.view.fragment.callback.PermissionsCallback
 import com.gabrielaangebrandt.blockbuddy.viewmodel.ManageProcessingFragmentViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,8 +25,8 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
     private var _binding: FragmentManageProcessingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var activityContext: Context
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var permissionAlertListener: PermissionAlertListener
 
     private val viewModel: ManageProcessingFragmentViewModel by viewModel()
     private val permissionsManager: PermissionsManager by inject()
@@ -63,7 +63,11 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        activityContext = context
+        try {
+            permissionAlertListener = context as MainActivity
+        } catch (castException: ClassCastException) {
+            Log.e(TAG, "This activity does not implement requested listener")
+        }
     }
 
     override fun onDestroyView() {
@@ -84,12 +88,10 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
             }.contains(true)
 
         when {
-            rationaleNeeded -> {
-                createPermissionAlert()
-            }
-            else -> {
+            rationaleNeeded ->
+                permissionAlertListener.createPermissionAlert()
+            else ->
                 requestPermissionLauncher.launch(missingPermissions)
-            }
         }
     }
 
@@ -100,24 +102,6 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
             }
     }
 
-    private fun createPermissionAlert() {
-        AlertDialog.Builder(activityContext)
-            .setTitle(R.string.permission_needed)
-            .setMessage(R.string.blockbuddy_needs_your_permission)
-            .setPositiveButton(R.string.allow) { _, _ -> navigateToAppSettings() }
-            .setNegativeButton(R.string.cancel) { view, _ -> view.dismiss() }
-            .create()
-            .show()
-    }
-
-    private fun navigateToAppSettings() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            data = Uri.fromParts(PACKAGE_SCHEME, context?.packageName, null)
-        }
-        startActivity(intent)
-    }
-
     private fun startObserving() {
         viewModel.processState.observe(this, ::updateUI)
     }
@@ -126,13 +110,4 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
         binding.btnAction.setBackgroundResource(processState.image)
         binding.tvInstructions.setText(processState.text)
     }
-
-    companion object {
-        private const val PACKAGE_SCHEME = "package"
-    }
-}
-
-interface PermissionsCallback {
-    fun onPermissionsGranted()
-    fun onPermissionsMissing(missingPermissions: Array<String>)
 }

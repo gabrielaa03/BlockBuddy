@@ -1,21 +1,24 @@
 package com.gabrielaangebrandt.blockbuddy.view.activity
 
+import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupWithNavController
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.CallListener
 import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.PhoneStateReceiver
 import com.gabrielaangebrandt.blockbuddy.databinding.ActivityMainBinding
 import com.gabrielaangebrandt.blockbuddy.viewmodel.MainActivityViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), CallListener {
+class MainActivity : AppCompatActivity(), CallListener, PermissionAlertListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -57,6 +60,16 @@ class MainActivity : AppCompatActivity(), CallListener {
                 || super.onSupportNavigateUp()
     }
 
+    override fun createPermissionAlert() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.permission_needed)
+            .setMessage(R.string.blockbuddy_needs_your_permission)
+            .setPositiveButton(R.string.allow) { _, _ -> navigateToAppSettings() }
+            .setNegativeButton(R.string.cancel) { view, _ -> view.dismiss() }
+            .create()
+            .show()
+    }
+
     private fun setUpNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
@@ -64,5 +77,17 @@ class MainActivity : AppCompatActivity(), CallListener {
 
         val bottomNavigationBar = binding.navViewLayout.bottomNavView
         bottomNavigationBar.setupWithNavController(navigationController)
+    }
+
+    private fun navigateToAppSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            data = Uri.fromParts(PACKAGE_SCHEME, packageName, null)
+        }
+        startActivity(intent)
+    }
+
+    companion object {
+        private const val PACKAGE_SCHEME = "package"
     }
 }

@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import com.gabrielaangebrandt.blockbuddy.view.fragment.PermissionsCallback
+import com.gabrielaangebrandt.blockbuddy.view.fragment.callback.PermissionsCallback
 
 class PermissionsManager(
     val context: Context

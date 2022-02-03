@@ -17,7 +17,7 @@ import com.gabrielaangebrandt.blockbuddy.utils.subscribe
 import com.gabrielaangebrandt.blockbuddy.view.fragment.adapter.BlockedNumbersAdapter
 import com.gabrielaangebrandt.blockbuddy.viewmodel.Setting
 import com.gabrielaangebrandt.blockbuddy.viewmodel.SettingsFragmentViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : Fragment() {
 
@@ -26,7 +26,7 @@ class SettingsFragment : Fragment() {
     private val adapter: BlockedNumbersAdapter by lazy {
         BlockedNumbersAdapter()
     }
-    private val viewModel: SettingsFragmentViewModel by inject()
+    private val viewModel: SettingsFragmentViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

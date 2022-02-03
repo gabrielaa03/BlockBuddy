@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielaangebrandt.blockbuddy.databinding.LayoutHistoryItemBinding
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
+import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel.Companion.getColor
 
 class HistoryListAdapter : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHolder>() {
 
@@ -48,10 +49,11 @@ class HistoryListAdapter : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHo
                 ivIcon.setColorFilter(
                     ContextCompat.getColor(
                         itemView.context,
-                        item.type.color
+                        item.getColor()
                     )
                 )
                 tvCaller.text = item.name
+                tvNumber.text = item.number
                 tvTime.text = item.time
             }
         }

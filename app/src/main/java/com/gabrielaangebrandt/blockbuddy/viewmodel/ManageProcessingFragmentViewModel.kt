@@ -1,5 +1,6 @@
 package com.gabrielaangebrandt.blockbuddy.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gabrielaangebrandt.blockbuddy.R
@@ -10,7 +11,10 @@ class ManageProcessingFragmentViewModel(
     private val sharedPrefsHelper: SharedPrefsHelper
 ) : ViewModel() {
 
-    var processState = MutableLiveData<ProcessState>()
+    private var _processState = MutableLiveData<ProcessState>()
+    val processState: LiveData<ProcessState>
+        get() = _processState
+
     val isServiceRunning: Boolean
         get() = sharedPrefsHelper.serviceRunning
 
@@ -31,6 +35,6 @@ class ManageProcessingFragmentViewModel(
             textRes = R.string.press_button_to_start_processing
         }
 
-        processState.postValue(ProcessState(imageRes, textRes))
+        _processState.postValue(ProcessState(imageRes, textRes))
     }
 }
