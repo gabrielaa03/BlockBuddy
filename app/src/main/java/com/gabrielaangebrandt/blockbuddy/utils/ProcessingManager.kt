@@ -6,16 +6,15 @@ import android.net.Uri
 import android.provider.CallLog
 import android.provider.ContactsContract
 import android.telephony.PhoneNumberUtils
+import android.util.Patterns
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallState
 
+private const val SUSPICIOUS_CALL_MOCK = "425-950-1212"
+private const val SCAM_CALL_MOCK = "253-950=1212"
 
-//  425 253
-private const val SUSPICIOUS_CALL_MOCK = "0995017080"
-private const val SCAM_CALL_MOCK = "099-864-8043"
-
-class ProcessingManager(
+open class ProcessingManager(
     val context: Context,
     private val sharedPrefsHelper: SharedPrefsHelper
 ) {
@@ -73,6 +72,7 @@ class ProcessingManager(
         generateSequence(cursor)
             .map { getCallLogsFromCursor(it) }
             .filter { it.type != CallLog.Calls.OUTGOING_TYPE }
+            .sortedByDescending { it.time }
             .toList()
 
     // extension for getting data of specific a column
@@ -143,4 +143,9 @@ class ProcessingManager(
             SUSPICIOUS_CALL_MOCK,
             number
         )
+
+    // check if entered number matches phone number regex
+    fun isNumberValid(number: String) =
+        Patterns.PHONE.matcher(number).matches()
+
 }

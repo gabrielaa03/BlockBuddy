@@ -1,13 +1,11 @@
 package com.gabrielaangebrandt.blockbuddy.viewmodel
 
-import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.viewrendering.SettingsFragmentData
 import com.gabrielaangebrandt.blockbuddy.utils.ProcessingManager
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
-
 
 class SettingsFragmentViewModel(
     private val sharedPrefsHelper: SharedPrefsHelper,
@@ -31,23 +29,16 @@ class SettingsFragmentViewModel(
     }
 
     // save switch state
-    fun saveSettings(state: Boolean) {
-        sharedPrefsHelper.allowContactsOnlyCall = state
+    fun saveSettings(allowContactsOnlyCall: Boolean) {
+        sharedPrefsHelper.allowContactsOnlyCall = allowContactsOnlyCall
     }
 
-    // check if entered number matches phone number regex
+    // check is number valid
     fun isNumberValid(number: String) =
-        Patterns.PHONE.matcher(number).matches()
+        processingManager.isNumberValid(number)
 
-    // For purpose of this project, blocked numbers will be saved on the app level. Ideally,
-    // the app needs to access blocked number on the system level and use a cursor to add
-    // more numbers. For that implementation we need to request additional changes for the
-    // user, e.g. set the app to be a default dialer, so I went for this kind of solution.
+    // block number on the app level
     fun blockNumber(number: String) {
-        // Since this is a String, this time I'll make an exception and
-        // I'll store it in Shared Preferences just to spare time on integrating database.
-        // Ideally, this would be saved into Room DB, no matter how complex it is. Shared
-        // Preferences should be used for simple values (Boolean, Int, String...).
         val oldBlockedNumbers = sharedPrefsHelper.blockedNumbers
         if (oldBlockedNumbers.contains(number)) {
             numberAlreadyBlocked.postValue(Unit)
