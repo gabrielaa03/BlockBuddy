@@ -3,7 +3,6 @@ package com.gabrielaangebrandt.blockbuddy.broadcastreceiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import com.gabrielaangebrandt.blockbuddy.TAG
 import com.gabrielaangebrandt.blockbuddy.service.ProcessingService

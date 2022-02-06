@@ -36,4 +36,8 @@
     <string name="caller_blocked">Caller blocked!</string>
     <string name="call_ended">Call ended</string>
 
+    <!-- Content Description -->
+    <string name="action_button">Action Button</string>
+    <string name="icon_indicator_call_type">Icon indicator - call type</string>
+
 </resources>

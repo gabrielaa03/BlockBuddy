@@ -22,11 +22,11 @@
         android:textSize="@dimen/highlight_text_size"
         android:visibility="gone" />
 
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:visibility="visible"
         android:indeterminateTint="@color/medium_turquoise" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

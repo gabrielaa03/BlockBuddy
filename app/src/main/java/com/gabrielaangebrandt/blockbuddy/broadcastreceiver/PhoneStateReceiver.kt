@@ -60,7 +60,6 @@ class PhoneStateReceiver : BroadcastReceiver(), KoinComponent {
     }
 
     private fun onPhoneAnswered(phoneNumber: String?) {
-        Toast.makeText(context, R.string.call_ended, Toast.LENGTH_SHORT).show()
         phoneNumber?.let {
             listener?.onCallFinished(it)
         }
@@ -68,7 +67,6 @@ class PhoneStateReceiver : BroadcastReceiver(), KoinComponent {
     }
 
     private fun onPhoneCallEnded(phoneNumber: String?) {
-        Toast.makeText(context, R.string.call_ended, Toast.LENGTH_SHORT).show()
         phoneNumber?.let {
             listener?.onCallFinished(it)
         }

@@ -78,7 +78,6 @@ class HistoryFragment : Fragment(), PermissionsCallback {
 
     override fun onResume() {
         super.onResume()
-        binding.progressBar.isVisible = true
         permissionsManager.setListener(this)
         permissionsManager.requestPermissions(false)
     }

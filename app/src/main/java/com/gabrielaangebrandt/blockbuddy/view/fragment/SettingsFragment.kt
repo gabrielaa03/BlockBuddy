@@ -1,9 +1,6 @@
 package com.gabrielaangebrandt.blockbuddy.view.fragment
 
-import android.content.Context.TELECOM_SERVICE
-import android.content.Intent
 import android.os.Bundle
-import android.telecom.TelecomManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,7 +91,6 @@ class SettingsFragment : Fragment() {
             }
         }
     }
-
 
     // button can be enabled only if a text in etNumber satisfy regex
     private fun enableButton(text: String) {
