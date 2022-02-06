@@ -1,6 +1,9 @@
 package com.gabrielaangebrandt.blockbuddy.view.fragment
 
+import android.content.Context.TELECOM_SERVICE
+import android.content.Intent
 import android.os.Bundle
+import android.telecom.TelecomManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +18,9 @@ import com.gabrielaangebrandt.blockbuddy.model.viewrendering.SettingsFragmentDat
 import com.gabrielaangebrandt.blockbuddy.utils.hideKeyboard
 import com.gabrielaangebrandt.blockbuddy.utils.subscribe
 import com.gabrielaangebrandt.blockbuddy.view.fragment.adapter.BlockedNumbersAdapter
-import com.gabrielaangebrandt.blockbuddy.viewmodel.Setting
 import com.gabrielaangebrandt.blockbuddy.viewmodel.SettingsFragmentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class SettingsFragment : Fragment() {
 
@@ -26,6 +29,7 @@ class SettingsFragment : Fragment() {
     private val adapter: BlockedNumbersAdapter by lazy {
         BlockedNumbersAdapter()
     }
+
     private val viewModel: SettingsFragmentViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +45,14 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getViewData()
+    override fun onStart() {
+        super.onStart()
+        viewModel.addToCompositeDisposables()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.cleanUpDisposables()
     }
 
     override fun onDestroyView() {
@@ -66,23 +75,7 @@ class SettingsFragment : Fragment() {
                 switchOption.apply {
                     isChecked = data.allowContactCallsChecked
                     setOnCheckedChangeListener { _, isChecked ->
-                        viewModel.saveSettings(
-                            Setting.ALLOW_CONTACTS_ONLY_CALL,
-                            isChecked
-                        )
-                    }
-                }
-            }
-
-            with(allowSmsFromContactsOnly) {
-                tvOption.text = getString(data.allowOnlySmsText)
-                switchOption.apply {
-                    isChecked = data.allowContactSmsChecked
-                    setOnCheckedChangeListener { _, isChecked ->
-                        viewModel.saveSettings(
-                            Setting.ALLOW_CONTACTS_ONLY_SMS,
-                            isChecked
-                        )
+                        viewModel.saveSettings(isChecked)
                     }
                 }
             }
@@ -107,12 +100,11 @@ class SettingsFragment : Fragment() {
                 }
                 btnAddNumber.setOnClickListener {
                     viewModel.blockNumber(etNumber.text.toString())
-                    // TODO: Clear once number is saved
-
                 }
             }
         }
     }
+
 
     // button can be enabled only if a text in etNumber satisfy regex
     private fun enableButton(text: String) {

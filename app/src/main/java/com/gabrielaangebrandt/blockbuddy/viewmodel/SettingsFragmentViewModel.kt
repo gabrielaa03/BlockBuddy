@@ -31,7 +31,6 @@ class SettingsFragmentViewModel(
             allowOnlyCallsText = R.string.allow_calls_from_contact_list_only,
             allowOnlySmsText = R.string.allow_sms_from_contact_list_only,
             allowContactCallsChecked = sharedPrefsHelper.allowContactsOnlyCall,
-            allowContactSmsChecked = sharedPrefsHelper.allowContactsOnlySms,
             blockedNumbers = processingManager.getBlockedNumbers()
         )
         viewData.postValue(data)
@@ -63,14 +62,8 @@ class SettingsFragmentViewModel(
     }
 
     // save switch state
-    fun saveSettings(option: Setting, state: Boolean) {
-        when (option) {
-            Setting.ALLOW_CONTACTS_ONLY_CALL ->
-                sharedPrefsHelper.allowContactsOnlyCall = state
-
-            Setting.ALLOW_CONTACTS_ONLY_SMS ->
-                sharedPrefsHelper.allowContactsOnlySms = state
-        }
+    fun saveSettings(state: Boolean) {
+        sharedPrefsHelper.allowContactsOnlyCall = state
     }
 
     // check if entered number matches phone number regex
@@ -80,9 +73,4 @@ class SettingsFragmentViewModel(
     fun blockNumber(number: String) {
         processingManager.addBlockedNumber(number)
     }
-}
-
-enum class Setting {
-    ALLOW_CONTACTS_ONLY_CALL,
-    ALLOW_CONTACTS_ONLY_SMS
 }

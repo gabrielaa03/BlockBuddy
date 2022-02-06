@@ -5,6 +5,5 @@ data class SettingsFragmentData(
     val allowOnlyCallsText: Int,
     val allowOnlySmsText: Int,
     val allowContactCallsChecked: Boolean,
-    val allowContactSmsChecked: Boolean,
     val blockedNumbers: List<String>
 )

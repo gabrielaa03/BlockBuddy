@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.TAG
 import com.gabrielaangebrandt.blockbuddy.databinding.FragmentHistoryBinding
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
@@ -30,7 +29,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var mainListener: MainListener
+    private lateinit var listener: MainListener
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
     private val historyAdapter: HistoryListAdapter by lazy {
         HistoryListAdapter()
@@ -41,8 +40,8 @@ class HistoryFragment : Fragment(), PermissionsCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registerPermissionCallback()
         startObserving()
+        registerPermissionCallback()
     }
 
     override fun onCreateView(
@@ -66,7 +65,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            mainListener = context as MainActivity
+            listener = context as MainActivity
         } catch (castException: ClassCastException) {
             Log.e(TAG, "This activity does not implement requested listener")
         }
@@ -79,6 +78,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
 
     override fun onResume() {
         super.onResume()
+        binding.progressBar.isVisible = true
         permissionsManager.setListener(this)
         permissionsManager.requestPermissions(false)
     }
@@ -90,22 +90,13 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     private fun registerPermissionCallback() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                permissionsManager.requestPermissions(false)
+                permissionsManager.requestPermissions(true)
             }
     }
 
     private fun notifyAdapter(callLogs: List<CallLogModel>) {
-        historyAdapter.setListItems(
-            callLogs.apply {
-                map {
-                    if (it.name.isEmpty()) {
-                        getString(R.string.unknown)
-                    } else {
-                        it.name
-                    }
-                }
-            }
-        )
+        historyAdapter.setListItems(callLogs)
+        binding.progressBar.isVisible = false
     }
 
     override fun onPermissionsGranted(changeRequested: Boolean) {
@@ -123,7 +114,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
 
         when {
             rationaleNeeded ->
-                mainListener.createPermissionAlert()
+                listener.createPermissionAlert()
             else ->
                 requestPermissionLauncher.launch(missingPermissions)
         }
@@ -131,6 +122,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
 
     private fun toggleViews(permissionsGranted: Boolean) {
         with(binding) {
+            progressBar.isVisible = permissionsGranted
             recyclerViewHistory.isVisible = permissionsGranted
             tvAllowPermissions.isVisible = !permissionsGranted
         }
