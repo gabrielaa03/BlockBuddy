@@ -91,7 +91,7 @@ The app provides an option to **block all calls except those from a contact list
 
 # Technical explanation
 
-The app uses three fragments. For switching between them, the app uses a Navigation Component and https://developer.android.com/guide/navigation/navigation-design-graph (Jetpack Compose). I wanted to try this out for some time now, so I decided to go with Bottom Navigation Bar. 
+The app uses three fragments. For switching between them, the app uses a Navigation Component and Navigation Graph (Jetpack Compose). I wanted to try this out for some time now, so I decided to go with Bottom Navigation Bar. 
 
 Most of the components are from Material Design. 
 
