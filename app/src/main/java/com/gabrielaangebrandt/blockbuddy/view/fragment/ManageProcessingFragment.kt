@@ -14,7 +14,7 @@ import com.gabrielaangebrandt.blockbuddy.databinding.FragmentManageProcessingBin
 import com.gabrielaangebrandt.blockbuddy.model.processing.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
 import com.gabrielaangebrandt.blockbuddy.view.activity.MainActivity
-import com.gabrielaangebrandt.blockbuddy.view.activity.PermissionAlertListener
+import com.gabrielaangebrandt.blockbuddy.view.activity.MainListener
 import com.gabrielaangebrandt.blockbuddy.view.fragment.callback.PermissionsCallback
 import com.gabrielaangebrandt.blockbuddy.viewmodel.ManageProcessingFragmentViewModel
 import org.koin.android.ext.android.inject
@@ -26,7 +26,7 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
     private val binding get() = _binding!!
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
-    private lateinit var permissionAlertListener: PermissionAlertListener
+    private lateinit var listener: MainListener
 
     private val viewModel: ManageProcessingFragmentViewModel by viewModel()
     private val permissionsManager: PermissionsManager by inject()
@@ -34,7 +34,6 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerPermissionCallback()
-        permissionsManager.setListener(this)
         startObserving()
     }
 
@@ -51,20 +50,19 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
 
         binding.btnAction.apply {
             viewModel.setupUI()
-            setOnClickListener {
-                if (viewModel.isServiceRunning) {
-                    onPermissionsGranted()
-                } else {
-                    permissionsManager.requestPermissions()
-                }
-            }
+            setOnClickListener { checkServiceState(true) }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkServiceState()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            permissionAlertListener = context as MainActivity
+            listener = context as MainActivity
         } catch (castException: ClassCastException) {
             Log.e(TAG, "This activity does not implement requested listener")
         }
@@ -76,9 +74,18 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
         _binding = null
     }
 
-    override fun onPermissionsGranted() {
+    override fun onPermissionsGranted(changeRequested: Boolean) {
         binding.btnAction.isClickable = true
-        viewModel.changeState()
+
+        if (changeRequested) {
+            viewModel.changeServiceState()
+
+            if (viewModel.isServiceRunning) {
+                listener.startProcessingService()
+            } else {
+                listener.stopProcessingService()
+            }
+        }
     }
 
     override fun onPermissionsMissing(missingPermissions: Array<String>) {
@@ -89,16 +96,26 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
 
         when {
             rationaleNeeded ->
-                permissionAlertListener.createPermissionAlert()
+                listener.createPermissionAlert()
             else ->
                 requestPermissionLauncher.launch(missingPermissions)
+        }
+    }
+
+    private fun checkServiceState(changeRequested: Boolean = false) {
+        // if service is already running, skip requesting permissions
+        if (viewModel.isServiceRunning) {
+            onPermissionsGranted(changeRequested)
+        } else {
+            permissionsManager.setListener(this)
+            permissionsManager.requestPermissions(changeRequested)
         }
     }
 
     private fun registerPermissionCallback() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                permissionsManager.requestPermissions()
+                permissionsManager.requestPermissions(false)
             }
     }
 
@@ -107,7 +124,18 @@ class ManageProcessingFragment : Fragment(), PermissionsCallback {
     }
 
     private fun updateUI(processState: ProcessState) {
-        binding.btnAction.setBackgroundResource(processState.image)
-        binding.tvInstructions.setText(processState.text)
+        with(binding) {
+            with(btnAction) {
+                alpha = 0f
+                translationY = 50F
+                this.animate()
+                    .alpha(1f)
+                    .translationYBy(-50F)
+                    .duration = 1000
+                setBackgroundResource(processState.image)
+            }
+            tvProcessingState.setText(processState.processingState)
+            tvInstructions.setText(processState.instructionsText)
+        }
     }
 }

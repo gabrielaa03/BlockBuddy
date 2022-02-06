@@ -1,30 +1,29 @@
 package com.gabrielaangebrandt.blockbuddy.view.activity
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupWithNavController
 import com.gabrielaangebrandt.blockbuddy.R
-import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.CallListener
-import com.gabrielaangebrandt.blockbuddy.broadcastreceiver.PhoneStateReceiver
+import com.gabrielaangebrandt.blockbuddy.TAG
 import com.gabrielaangebrandt.blockbuddy.databinding.ActivityMainBinding
+import com.gabrielaangebrandt.blockbuddy.service.ProcessingService
 import com.gabrielaangebrandt.blockbuddy.viewmodel.MainActivityViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), CallListener, PermissionAlertListener {
+class MainActivity : AppCompatActivity(), MainListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private val stateReceiver: PhoneStateReceiver by lazy {
-        PhoneStateReceiver()
-    }
+
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,31 +38,27 @@ class MainActivity : AppCompatActivity(), CallListener, PermissionAlertListener 
         setUpNavigation()
     }
 
-    override fun onResume() {
-        super.onResume()
-        stateReceiver.setListener(this)
-        registerReceiver(stateReceiver, IntentFilter(""))
-    }
-
-    override fun onCallReceived(number: String) {
-        viewModel.processCall(number)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(stateReceiver)
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.hostFragment)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
 
+    override fun startProcessingService() {
+        val intent = Intent(this, ProcessingService::class.java)
+        startForegroundService(intent)
+        Log.d(TAG, "Service started.")
+    }
+
+    override fun stopProcessingService() {
+        stopService(Intent(this, ProcessingService::class.java))
+        Log.d(TAG, "Service stopped.")
+    }
+
     override fun createPermissionAlert() {
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.permission_needed)
-            .setMessage(R.string.blockbuddy_needs_your_permission)
+            .setMessage(R.string.blockbuddy_needs_following_permission)
             .setPositiveButton(R.string.allow) { _, _ -> navigateToAppSettings() }
             .setNegativeButton(R.string.cancel) { view, _ -> view.dismiss() }
             .create()

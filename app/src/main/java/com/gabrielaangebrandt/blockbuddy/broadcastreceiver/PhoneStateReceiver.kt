@@ -18,37 +18,40 @@ class PhoneStateReceiver : BroadcastReceiver(), KoinComponent {
 
     private val sharedPrefsHelper: SharedPrefsHelper by inject()
     private var listener: CallListener? = null
+    private var context: Context? = null
 
     fun setListener(listener: CallListener) {
         this.listener = listener
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        this.context = context
         if (sharedPrefsHelper.serviceRunning) {
-            checkPhoneState(intent, context)
+            checkPhoneState(intent)
         } else {
             Log.d(TAG, "Processing has not been started.")
         }
     }
 
-    private fun checkPhoneState(intent: Intent?, context: Context?) {
+    private fun checkPhoneState(intent: Intent?) {
         if (intent?.action == PHONE_STATE) {
-            val phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE) ?: return
+            val phoneState: String = intent.getStringExtra(TelephonyManager.EXTRA_STATE) ?: return
+            val phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
 
             when (phoneState) {
-                TelephonyManager.EXTRA_STATE_RINGING,
+                TelephonyManager.EXTRA_STATE_RINGING ->
+                    onPhoneRinging(phoneNumber)
                 TelephonyManager.EXTRA_STATE_OFFHOOK ->
-                    onPhoneRinging(intent)
+                    onPhoneAnswered(phoneNumber)
                 TelephonyManager.EXTRA_STATE_IDLE ->
-                    onPhoneCallEnded(context)
+                    onPhoneCallEnded(phoneNumber)
             }
         } else {
             Log.d(TAG, "Action received: ${intent?.action}")
         }
     }
 
-    private fun onPhoneRinging(intent: Intent) {
-        val phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+    private fun onPhoneRinging(phoneNumber: String?) {
         phoneNumber?.let {
             listener?.onCallReceived(it)
         }
@@ -56,8 +59,19 @@ class PhoneStateReceiver : BroadcastReceiver(), KoinComponent {
         Log.d(TAG, "Phone ringing.")
     }
 
-    private fun onPhoneCallEnded(context: Context?) {
-        Toast.makeText(context, R.string.call_ended, Toast.LENGTH_LONG).show()
+    private fun onPhoneAnswered(phoneNumber: String?) {
+        Toast.makeText(context, R.string.call_ended, Toast.LENGTH_SHORT).show()
+        phoneNumber?.let {
+            listener?.onCallFinished(it)
+        }
+        Log.d(TAG, "Call answered.")
+    }
+
+    private fun onPhoneCallEnded(phoneNumber: String?) {
+        Toast.makeText(context, R.string.call_ended, Toast.LENGTH_SHORT).show()
+        phoneNumber?.let {
+            listener?.onCallFinished(it)
+        }
         Log.d(TAG, "Phone call ended.")
     }
 }
