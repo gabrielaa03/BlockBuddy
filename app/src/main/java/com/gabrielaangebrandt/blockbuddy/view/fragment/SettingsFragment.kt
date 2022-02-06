@@ -42,6 +42,11 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getViewData()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

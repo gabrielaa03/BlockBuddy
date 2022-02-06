@@ -17,7 +17,7 @@ class SettingsFragmentViewModel(
     val numberAlreadyBlocked = MutableLiveData<Unit>()
 
     // initial view rendering
-    init {
+    fun getViewData() {
         val data = SettingsFragmentData(
             instructions = R.string.customize_your_settings,
             allowOnlyCallsText = R.string.allow_calls_from_contact_list_only,

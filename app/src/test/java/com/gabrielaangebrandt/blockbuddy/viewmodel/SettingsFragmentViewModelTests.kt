@@ -38,7 +38,7 @@ class SettingsFragmentViewModelTests : BaseTests() {
     }
 
     @Test
-    fun testInit() {
+    fun testGetViewData() {
         val data = SettingsFragmentData(
             instructions = R.string.customize_your_settings,
             allowOnlyCallsText = R.string.allow_calls_from_contact_list_only,
@@ -46,6 +46,8 @@ class SettingsFragmentViewModelTests : BaseTests() {
             allowContactCallsChecked = sharedPrefsHelper.allowContactsOnlyCall,
             blockedNumbers = sharedPrefsHelper.blockedNumbers
         )
+
+        viewModel.getViewData()
 
         viewModel.viewData.observeForever(viewDataObserver)
         verify(viewDataObserver).onChanged(data)
@@ -55,10 +57,10 @@ class SettingsFragmentViewModelTests : BaseTests() {
     @Test
     fun testSaveSettings() {
         viewModel.saveSettings(true)
-        verify(sharedPrefsHelper).allowContactsOnlyCall
+        verify(sharedPrefsHelper).allowContactsOnlyCall = true
 
         viewModel.saveSettings(false)
-        verify(sharedPrefsHelper).allowContactsOnlyCall
+        verify(sharedPrefsHelper).allowContactsOnlyCall = false
     }
 
     @Test
