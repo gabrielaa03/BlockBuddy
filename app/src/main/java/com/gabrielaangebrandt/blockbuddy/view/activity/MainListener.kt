@@ -1,5 +1,7 @@
 package com.gabrielaangebrandt.blockbuddy.view.activity
 
-interface PermissionAlertListener {
+interface MainListener {
+    fun startProcessingService()
+    fun stopProcessingService()
     fun createPermissionAlert()
 }

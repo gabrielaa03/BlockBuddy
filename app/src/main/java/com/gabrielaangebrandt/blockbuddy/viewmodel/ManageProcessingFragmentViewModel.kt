@@ -18,7 +18,7 @@ class ManageProcessingFragmentViewModel(
     val isServiceRunning: Boolean
         get() = sharedPrefsHelper.serviceRunning
 
-    fun changeState() {
+    fun changeServiceState() {
         sharedPrefsHelper.serviceRunning = !sharedPrefsHelper.serviceRunning
         setupUI()
     }

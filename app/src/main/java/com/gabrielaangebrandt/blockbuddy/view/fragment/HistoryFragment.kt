@@ -1,9 +1,7 @@
 package com.gabrielaangebrandt.blockbuddy.view.fragment
 
 import android.content.Context
-import android.database.Cursor
 import android.os.Bundle
-import android.provider.CallLog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +18,7 @@ import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
 import com.gabrielaangebrandt.blockbuddy.utils.PermissionsManager
 import com.gabrielaangebrandt.blockbuddy.utils.subscribe
 import com.gabrielaangebrandt.blockbuddy.view.activity.MainActivity
-import com.gabrielaangebrandt.blockbuddy.view.activity.PermissionAlertListener
+import com.gabrielaangebrandt.blockbuddy.view.activity.MainListener
 import com.gabrielaangebrandt.blockbuddy.view.fragment.adapter.HistoryListAdapter
 import com.gabrielaangebrandt.blockbuddy.view.fragment.callback.PermissionsCallback
 import com.gabrielaangebrandt.blockbuddy.viewmodel.HistoryFragmentViewModel
@@ -32,7 +30,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var permissionAlertListener: PermissionAlertListener
+    private lateinit var mainListener: MainListener
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
     private val historyAdapter: HistoryListAdapter by lazy {
         HistoryListAdapter()
@@ -68,7 +66,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            permissionAlertListener = context as MainActivity
+            mainListener = context as MainActivity
         } catch (castException: ClassCastException) {
             Log.e(TAG, "This activity does not implement requested listener")
         }
@@ -82,7 +80,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     override fun onResume() {
         super.onResume()
         permissionsManager.setListener(this)
-        permissionsManager.requestPermissions()
+        permissionsManager.requestPermissions(false)
     }
 
     private fun startObserving() {
@@ -92,7 +90,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
     private fun registerPermissionCallback() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                permissionsManager.requestPermissions()
+                permissionsManager.requestPermissions(false)
             }
     }
 
@@ -110,23 +108,9 @@ class HistoryFragment : Fragment(), PermissionsCallback {
         )
     }
 
-    override fun onPermissionsGranted() {
+    override fun onPermissionsGranted(changeRequested: Boolean) {
         toggleViews(permissionsGranted = true)
-
-        context?.let { ctx ->
-            val cursor: Cursor? = ctx.contentResolver.query(
-                CallLog.Calls.CONTENT_URI,
-                viewModel.projection,
-                null,
-                null,
-                null
-            )
-
-            cursor?.let {
-                viewModel.filterCallLogs(it)
-                it.close()
-            }
-        }
+        viewModel.filterCallLogs()
     }
 
     override fun onPermissionsMissing(missingPermissions: Array<String>) {
@@ -139,7 +123,7 @@ class HistoryFragment : Fragment(), PermissionsCallback {
 
         when {
             rationaleNeeded ->
-                permissionAlertListener.createPermissionAlert()
+                mainListener.createPermissionAlert()
             else ->
                 requestPermissionLauncher.launch(missingPermissions)
         }

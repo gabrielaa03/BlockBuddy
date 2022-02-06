@@ -33,12 +33,12 @@ class PermissionsManager(
         }
     }
 
-    fun requestPermissions() {
+    fun requestPermissions(changeRequested: Boolean) {
         checkPermissionState(callLogPermission)
         checkPermissionState(phoneStatePermission)
 
         if (missingPermissions.isEmpty()) {
-            listener.onPermissionsGranted()
+            listener.onPermissionsGranted(changeRequested)
         } else {
             listener.onPermissionsMissing(missingPermissions.toTypedArray())
             missingPermissions.clear()

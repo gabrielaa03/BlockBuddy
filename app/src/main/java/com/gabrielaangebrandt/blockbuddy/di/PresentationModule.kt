@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val presentationModule = module {
     viewModel { ManageProcessingFragmentViewModel(get()) }
-    viewModel { HistoryFragmentViewModel() }
-    viewModel { SettingsFragmentViewModel(get()) }
+    viewModel { HistoryFragmentViewModel(get()) }
+    viewModel { SettingsFragmentViewModel(get(), get()) }
 }
