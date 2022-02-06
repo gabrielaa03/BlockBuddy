@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- permission for detecting phone number -->
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <!-- permission for ending phone programmatically -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- permission for ending phone programmatically -->
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <!-- permission for accessing the contact list -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- permission for enabling processing once the app goes in background (with notification) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!-- permission for enabling auto-processing once the app reboots -->
@@ -36,7 +42,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -47,6 +52,10 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
-    </application>
 
+        <service
+            android:name=".service.ProcessingService"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
 </manifest>

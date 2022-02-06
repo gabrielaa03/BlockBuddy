@@ -6,12 +6,11 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import com.gabrielaangebrandt.blockbuddy.view.fragment.callback.PermissionsCallback
 
-class PermissionsManager(
-    val context: Context
-) {
+class PermissionsManager(val context: Context) {
     private val missingPermissions = mutableListOf<String>()
     private val callLogPermission = Manifest.permission.READ_CALL_LOG
-    private val phoneStatePermission = Manifest.permission.READ_PHONE_STATE
+    private val callPhonePermission = Manifest.permission.CALL_PHONE
+    private val accessContactsPermission = Manifest.permission.READ_CONTACTS
 
     private lateinit var listener: PermissionsCallback
 
@@ -35,7 +34,8 @@ class PermissionsManager(
 
     fun requestPermissions(changeRequested: Boolean) {
         checkPermissionState(callLogPermission)
-        checkPermissionState(phoneStatePermission)
+        checkPermissionState(callPhonePermission)
+        checkPermissionState(accessContactsPermission)
 
         if (missingPermissions.isEmpty()) {
             listener.onPermissionsGranted(changeRequested)
