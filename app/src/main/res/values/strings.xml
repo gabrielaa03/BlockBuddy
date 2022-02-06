@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BlockBuddy</string>
-    <string name="app_notification_title">BlockBuddy running in background…</string>
+    <string name="app_notification_title">BlockBuddy is processing calls</string>
     <string name="app_notification_description">Tap to return to the app</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -30,5 +30,6 @@
     <string name="enter_number">Enter number…</string>
     <string name="this_number_is_already_blocked">This number is already blocked.</string>
     <string name="caller_blocked">Caller blocked!</string>
+    <string name="call_ended">Call ended</string>
 
 </resources>

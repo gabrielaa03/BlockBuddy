@@ -3,13 +3,17 @@ package com.gabrielaangebrandt.blockbuddy.utils
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.notification.NotificationData
 import com.gabrielaangebrandt.blockbuddy.model.notification.NotificationType
+import com.gabrielaangebrandt.blockbuddy.view.activity.MainActivity
 
 class NotificationHelper(private val context: Context) {
 
@@ -36,7 +40,7 @@ class NotificationHelper(private val context: Context) {
             .setSound(null)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
-//            .setContentIntent()
+            .setContentIntent(openMainActivity())
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createChannel(id: String) =
@@ -67,6 +71,14 @@ class NotificationHelper(private val context: Context) {
                 )
             }
         }
+
+    private fun openMainActivity(): PendingIntent =
+        PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java),
+            FLAG_UPDATE_CURRENT
+        )
 
     companion object {
         private const val APP_CHANNEL_ID = "BlockBuddyChannelID"
