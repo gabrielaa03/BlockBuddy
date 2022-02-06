@@ -5,5 +5,6 @@ import androidx.annotation.StringRes
 
 data class ProcessState(
     @DrawableRes val image: Int,
-    @StringRes val text: Int
+    @StringRes val processingState: Int,
+    @StringRes val instructionsText: Int
 )

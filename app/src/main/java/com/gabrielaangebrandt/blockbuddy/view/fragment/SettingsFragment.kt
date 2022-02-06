@@ -45,16 +45,6 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.addToCompositeDisposables()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        viewModel.cleanUpDisposables()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
