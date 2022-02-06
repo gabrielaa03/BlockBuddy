@@ -9,14 +9,18 @@
     <string name="settings">Settings</string>
 
     <!-- Call Processing Fragment -->
+    <string name="welcome_to_blockbuddy">Welcome to BlockBuddy!</string>
+    <string name="processing_calls">Processing calls…</string>
+    <string name="processing_turned_off">Processing turned off</string>
     <string name="press_button_to_start_processing">Press button to start processing</string>
     <string name="press_button_to_stop_processing">Press button to stop processing</string>
     <string name="permission_needed">Permission needed</string>
     <string name="allow">Allow</string>
     <string name="cancel">Cancel</string>
-    <string name="blockbuddy_needs_your_permission">BlockBuddy needs your permission for reading phone state and call log to be able to process incoming calls.</string>
+    <string name="blockbuddy_needs_following_permission">To be able to process incoming calls, BlockBuddy needs following permission: \n - reading phone state \n - call log \n - read contacts \n - call phone</string>
     <string name="suspicious_call">Suspicious call</string>
     <string name="be_careful_this_number_is_not_on_your_contact_list">Be careful. This number is not on your contact list.</string>
+    <string name="channel_name">BlockBuddyChannel</string>
 
     <!-- History Fragment -->
     <string name="to_be_able_to_see_history_you_need_to_give_permissions_to_blockbuddy">To be able to see history, you need to give permissions to BlockBuddy.</string>

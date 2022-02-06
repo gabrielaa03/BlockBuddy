@@ -1,9 +1,12 @@
 <resources>
     <dimen name="standard_margin">16dp</dimen>
+    <dimen name="title_margin">60dp</dimen>
     <dimen name="small_margin">8dp</dimen>
-    <dimen name="btn_action_dimen">60dp</dimen>
+    <dimen name="btn_action_dimen">100dp</dimen>
     <dimen name="standard_elevation">8dp</dimen>
     <dimen name="regular_text_size">14sp</dimen>
     <dimen name="highlight_text_size">16sp</dimen>
+    <dimen name="title_text_size">24sp</dimen>
+    <dimen name="subtitle_text_size">22sp</dimen>
     <dimen name="app_icon_dimen">120dp</dimen>
 </resources>

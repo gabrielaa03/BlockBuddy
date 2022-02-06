@@ -25,16 +25,25 @@ class ManageProcessingFragmentViewModel(
 
     fun setupUI() {
         val imageRes: Int
-        val textRes: Int
+        val processingStateTextRes: Int
+        val instructionsTextRes: Int
 
         if (sharedPrefsHelper.serviceRunning) {
-            imageRes = R.drawable.ic_stop
-            textRes = R.string.press_button_to_stop_processing
+            imageRes = R.drawable.background_stop_service
+            processingStateTextRes = R.string.processing_calls
+            instructionsTextRes = R.string.press_button_to_stop_processing
         } else {
-            imageRes = R.drawable.ic_start
-            textRes = R.string.press_button_to_start_processing
+            imageRes = R.drawable.background_start_service
+            processingStateTextRes = R.string.processing_turned_off
+            instructionsTextRes = R.string.press_button_to_start_processing
         }
 
-        _processState.postValue(ProcessState(imageRes, textRes))
+        _processState.postValue(
+            ProcessState(
+                imageRes,
+                processingStateTextRes,
+                instructionsTextRes
+            )
+        )
     }
 }

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.gabrielaangebrandt.blockbuddy"
-        minSdk 23
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -65,7 +65,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
 
     // Navigation
-    def navigation_version = '2.3.5'
+    def navigation_version = '2.4.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 

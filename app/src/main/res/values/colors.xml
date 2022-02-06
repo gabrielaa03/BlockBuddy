@@ -3,6 +3,7 @@
     <color name="medium_turquoise">#44BCBD</color>
     <color name="teal">#004c72</color>
     <color name="dodger_blue">#2991d5</color>
+    <color name="dodger_blue_20">#332991D5</color>
     <color name="steel_blue">#2174AA</color>
     <color name="olive">#737100</color>
     <color name="black">#FF000000</color>
@@ -11,5 +12,6 @@
     <color name="green">#189A02</color>
     <color name="orange">#BCFF5722</color>
     <color name="red">#AA0606</color>
+    <color name="lightGray">#B3B2B2</color>
     <color name="gray">#454343</color>
 </resources>
