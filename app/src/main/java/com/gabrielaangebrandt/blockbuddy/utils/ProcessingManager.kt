@@ -10,6 +10,8 @@ import android.util.Patterns
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 private const val SUSPICIOUS_CALL_MOCK = "425-950-1212"
 private const val SCAM_CALL_MOCK = "253-950=1212"
@@ -82,8 +84,8 @@ open class ProcessingManager(
     // modeling
     private fun getCallLogsFromCursor(cursor: Cursor): CallLogModel {
         val number: String = cursor.getCallLogData(CallLog.Calls.NUMBER)
-        var name: String = cursor.getCallLogData(CallLog.Calls.CACHED_NAME)
-        if (name.isEmpty()) {
+        var name: String? = cursor.getCallLogData(CallLog.Calls.CACHED_NAME)
+        if (name.isNullOrEmpty()) {
             name = context.getString(R.string.unknown)
         }
         val time: String = cursor.getCallLogData(CallLog.Calls.DATE)
