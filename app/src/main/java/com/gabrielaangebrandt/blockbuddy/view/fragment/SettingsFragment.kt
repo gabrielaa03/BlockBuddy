@@ -105,7 +105,6 @@ class SettingsFragment : Fragment() {
 
     private fun onNumberAddedToList(blockedNumbers: List<String>) {
         adapter.setNumbers(blockedNumbers)
-        Toast.makeText(context, R.string.caller_blocked, Toast.LENGTH_LONG).show()
 
         binding.customBlocking.etNumber.run {
             clearFocus()
