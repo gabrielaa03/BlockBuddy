@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallState
 import com.gabrielaangebrandt.blockbuddy.utils.ProcessingManager
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -12,6 +14,7 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class HistoryFragmentViewModelTests : BaseTests() {
 
@@ -38,10 +41,12 @@ class HistoryFragmentViewModelTests : BaseTests() {
         )
         `when`(processingManager.getCallLogs()).thenReturn(data)
 
-        viewModel.filterCallLogs()
+        testCoroutineScope.runBlockingTest {
+            viewModel.filterCallLogs()
 
-        viewModel.callLogs.observeForever(callLogsObserver)
-        verify(callLogsObserver).onChanged(data)
-        assertEquals(data, viewModel.callLogs.value)
+            viewModel.callLogs.observeForever(callLogsObserver)
+            verify(callLogsObserver).onChanged(data)
+            assertEquals(data, viewModel.callLogs.value)
+        }
     }
 }

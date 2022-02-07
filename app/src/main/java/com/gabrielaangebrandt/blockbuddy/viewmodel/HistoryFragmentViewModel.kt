@@ -3,8 +3,12 @@ package com.gabrielaangebrandt.blockbuddy.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.gabrielaangebrandt.blockbuddy.model.processing.CallLogModel
 import com.gabrielaangebrandt.blockbuddy.utils.ProcessingManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HistoryFragmentViewModel(
     private val processingManager: ProcessingManager
@@ -15,6 +19,10 @@ class HistoryFragmentViewModel(
         get() = _callLogs
 
     fun filterCallLogs() {
-        _callLogs.postValue(processingManager.getCallLogs())
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _callLogs.postValue(processingManager.getCallLogs())
+            }
+        }
     }
 }

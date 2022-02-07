@@ -5,6 +5,7 @@ import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.viewrendering.SettingsFragmentData
 import com.gabrielaangebrandt.blockbuddy.utils.ProcessingManager
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,6 +14,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class SettingsFragmentViewModelTests : BaseTests() {
 

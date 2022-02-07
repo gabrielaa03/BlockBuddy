@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.gabrielaangebrandt.blockbuddy.R
 import com.gabrielaangebrandt.blockbuddy.model.processing.ProcessState
 import com.gabrielaangebrandt.blockbuddy.utils.SharedPrefsHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
@@ -13,6 +14,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class ManageProcessingFragmentViewModelTests : BaseTests() {
 
